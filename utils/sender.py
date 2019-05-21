@@ -4,19 +4,18 @@
 
 from requests import post
 
-from events import Event
-
 
 class Sender:
 
-    @staticmethod
-    def send(session_token: str, event: Event, **parameters):
-        # url = 'http://localhost:6677/backend'
-        url = 'https://dumbdatabot.appspot.com/backend'
+    def __init__(self, session_token):
+        self.session_token = session_token
+
+    def send(self, event: str, parameters):
+        url = 'http://dumbdatabot.appspot.com/backend'
         body = {
-            'session': session_token,
-            'event': event.value,
+            'session': self.session_token,
+            'event': event,
             'parameters': parameters,
         }
-
+        print(body)
         post(url, json=body)

@@ -1,3 +1,5 @@
+pika
+pandas
 requests==2.18.4
 flask==0.12.3
 celery==4.2.1

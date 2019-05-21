@@ -4,6 +4,8 @@
 
 from typing import Dict
 
+from pika import BlockingConnection
+
 from stateful_session import StatefulSession
 
 
@@ -11,7 +13,7 @@ class SessionManager:
     sessions: Dict[str, StatefulSession] = {}
 
     @classmethod
-    def get_session(cls, session_token: str = 'default') -> StatefulSession:
+    def get_session(cls, session_token: str, mq: BlockingConnection) -> StatefulSession:
         if session_token not in cls.sessions:
-            cls.sessions[session_token] = StatefulSession(session_token)
+            cls.sessions[session_token] = StatefulSession(session_token, mq)
         return cls.sessions.get(session_token)
